@@ -1,18 +1,20 @@
 import "../styles/globals.css";
-import FlagProvider from "@unleash/proxy-client-react";
-import fetch from 'node-fetch';
+import FlagProvider, { UnleashClient, InMemoryStorageProvider } from "@unleash/proxy-client-react";
 
 const config = {
-  url: 'https://HOSTNAME/proxy',
-  clientKey: 'PROXYKEY',
-  refreshInterval: 15,
-  appName: 'your-app-name',
-  environment: 'dev',
-  fetch
-};
+  "url": "",
+  "clientKey": "",
+  "appName": "",
+  "projectName": "",
+  "refreshInterval": "",
+  "environment": "",
+}
 
 function MyApp({ Component, pageProps }) {
-  return (<FlagProvider config={config}>
+  console.log('toggles ====> ', pageProps.toggles);
+  const ssrOption = process.browser ? {} : { fetch: fetch, storageProvider: new InMemoryStorageProvider() };
+  const client = new UnleashClient({ ...config, ...ssrOption,  bootstrap: pageProps.toggles });
+  return (<FlagProvider unleashClient={ client }>
     <Component {...pageProps} />
   </FlagProvider>)
 }
