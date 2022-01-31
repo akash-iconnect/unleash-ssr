@@ -2,4 +2,5 @@
 - add flag in index.js line 10
 - run using npm run dev
 - go to http://localhost:3000/
-- you will find variants values are preloaded from server side, but flagReady flag is not, this causes loading component to be loaded on server side
+- check logs in browser, you can see flagReady as false then it becomes true, but variants are already present
+- you can also view page source and check that "Loading Component" is delivered from server side and not "Component to show after flag ready"
