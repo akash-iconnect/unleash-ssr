@@ -1,6 +1,5 @@
-- add your configs in _app.js
+- add your configs in _app.js and index.js
 - add flag in index.js line 10
 - run using npm run dev
-- click on "Go to About page"
-- then on about page click on "Go back to home"
-- you will see some flagReady is false and loading component showing
+- go to http://localhost:3000/
+- you will find variants values are preloaded from server side, but flagReady flag is not, this causes loading component to be loaded on server side
