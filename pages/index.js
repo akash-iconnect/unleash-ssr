@@ -8,7 +8,8 @@ import styled from 'styled-components'
 import { useEffect } from "react";
 
 export default function Home() {
-  const variant = useVariant('search-algo');
+  const variant = useVariant('search');
+
   const { flagsReady, flagsError } = useFlagsStatus();
   const updateContext = useUnleashContext();
   const userId = '123'
@@ -17,12 +18,15 @@ export default function Home() {
     // context is updated with userId
     updateContext({ userId })
   }, [userId])
+
+  console.log('Test log ====> ',{flagsReady, flagsError, variant});
   return (
     <div className={styles.container}>
       <div>{JSON.stringify(variant)}</div>
       <div>flagsReady : - {JSON.stringify(flagsReady)}</div>
 
-      {!flagsReady && <div>Loading</div>}
+      {!flagsReady && <div>Loading Component</div>}
+      {flagsReady && <>Component to show after flag ready</>}
       
 
       <Link href="/About">
@@ -40,7 +44,7 @@ const config = {
   "clientKey": "",
   "appName": "",
   "projectName": "",
-  "refreshInterval": "",
+  "refreshInterval": 1000,
   "environment": "",
 }
 
@@ -55,6 +59,7 @@ export async function getServerSideProps () {
   await unleash.start()
 
   const toggles = unleash.getAllToggles()
+  console.log('toggles server =====>' , toggles);
 
   return {
     props: {

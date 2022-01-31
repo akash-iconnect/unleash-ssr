@@ -6,14 +6,15 @@ const config = {
   "clientKey": "",
   "appName": "",
   "projectName": "",
-  "refreshInterval": "",
+  "refreshInterval": 1000,
   "environment": "",
 }
 
 function MyApp({ Component, pageProps }) {
-  console.log('toggles ====> ', pageProps.toggles);
   const ssrOption = process.browser ? {} : { fetch: fetch, storageProvider: new InMemoryStorageProvider() };
   const client = new UnleashClient({ ...config, ...ssrOption,  bootstrap: pageProps.toggles });
+  client.updateContext({ userId: '123' });
+
   return (<FlagProvider unleashClient={ client }>
     <Component {...pageProps} />
   </FlagProvider>)
